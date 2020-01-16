@@ -651,3 +651,7 @@ msgstr "Fanart miniaturen"
 msgctxt "#31259"
 msgid "Extra fanart"
 msgstr "Extra fanart"
+
+msgctxt "#31283"
+msgid "[B]LibreELEC system settings[/B][CR][CR] •     Updates[CR] •     Network[CR] •     Connections[CR] •     Bluetooth[CR] •     Services[CR]"
+msgstr "[B]LibreELEC-instellingen[/B][CR][CR] •     Updates[CR] •     Netwerkinstellingen[CR] •     Netwerkverbinding[CR] •     Bluetooth[CR] •     Services[CR]"

@@ -26,7 +26,7 @@
                 <top>10</top>
                 <bottom>10</bottom>
                 <right>10</right>
-                <left>1160</left>
+                <left>1230</left>
                 <control type="textbox">
                     <top>30</top>
                     <bottom>30</bottom>
@@ -40,14 +40,21 @@
             </control>
             <control type="group" description="lines">
                 <control type="image">
-                    <left>575</left>
+                    <left>410</left>
                     <width>1</width>
                     <top>11</top>
                     <bottom>11</bottom>
                     <texture colordiffuse="Black12">common/white.png</texture>
                 </control>
                 <control type="image">
-                    <left>1150</left>
+                    <left>820</left>
+                    <top>11</top>
+                    <bottom>11</bottom>
+                    <width>1</width>
+                    <texture colordiffuse="Black12">common/white.png</texture>
+                </control>
+                <control type="image">
+                    <left>1230</left>
                     <top>11</top>
                     <bottom>11</bottom>
                     <width>1</width>
@@ -71,11 +78,11 @@
             </control>
             <control type="Panel" id="9100">
                 <left>0</left>
-                <width>1150</width>
+                <width>1230</width>
                 <top>10</top>
-                <height>642</height>
+                <height>513.6</height>
                 <orientation>horizontal</orientation>
-                <itemlayout width="575" height="128.4">
+                <itemlayout width="410" height="128.4">
                     <!--<control type="image">
                         <left>0</left>
                         <top>0</top>
@@ -102,7 +109,13 @@
                     </control>
 
                 </itemlayout>
-                <focusedlayout width="575" height="128.4">
+                <!--
+                  Rather than enlarging the buttons we'll be adding a placeholder 128.4px high below them. If you want to enlarge the buttons, the following values work (times 1,25):
+                  -128.4 instead of 128.4
+                  - 134.625 instead of 107.7
+                  - 133.625 instead of 106.7.
+                  -->
+                <focusedlayout width="410" height="128.4">
                     <control type="image">
                         <left>0</left>
                         <top>0</top>
@@ -194,6 +207,14 @@
                         <onclick>activatewindow(pvrsettings)</onclick>
                     </item>
 
+                    <!--This is a haphazard guess; there's an 11, a 12, but then again 5 and 6 went AWOL?-->
+                    <item id="13">
+		        <label>LibreELEC</label>
+		        <label2>31283</label2>
+		        <onclick>RunAddon(service.libreelec.settings)</onclick>
+			<icon>special://skin/extras/icons/libreelec.png</icon>
+		        <visible>System.HasAddon(service.libreelec.settings)</visible>
+                    </item>
 
                 </content>
             </control>

@@ -773,3 +773,7 @@ msgstr ""
 msgctxt "#31282"
 msgid "Special Features"
 msgstr ""
+
+msgctxt "#31283"
+msgid "[B]LibreELEC system settings[/B][CR][CR] •     Updates[CR] •     Network[CR] •     Connections[CR] •     Bluetooth[CR] •     Services[CR]"
+msgstr ""
