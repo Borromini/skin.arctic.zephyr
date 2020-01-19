@@ -1,64 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  TODO: + Menu-hoofdingen in het rechterpaneel worden in Arctic Zephry lichtgrijs weergegeven, maar het is niet duidelijk hoe en waar dat
+          gebeurt.
+        + Dialoogvensters van het LibreELEC dienen nog te worden geskind (toetsenbord e.d.) als er ooit es tijd teveel is.
+  -->
 <window id="3033">
     <defaultcontrol always="true">1000</defaultcontrol>
     <allowoverlay>no</allowoverlay>
-    <animation type="WindowOpen" reversible="false">
-        <effect type="fade" start="0" end="100" time="200"/>
-        <effect type="slide" start="0,-1080" end="0" time="200" center="auto"/>
-    </animation>
-    <animation type="WindowClose" reversible="false">
-	<effect type="fade" start="100" end="0" time="200"/>
-	<effect type="slide" start="0,0" end="0,-1080" time="200" center="auto"/>
-    </animation>
-	<controls>
-	<control type="image">
-                <left>0</left>
-                <top>0</top>
-                <width>100%</width>
-                <height>100%</height>
-                <texture colordiffuse="B3000000">common/white.png</texture>
-        </control>
+
+    <controls>
+	<include>GlobalBackground</include>
+	<include>Furniture_Header</include>
+	<include>Furniture_Clock</include>
+	<include>Furniture_NowPlaying</include>
+	<include>Furniture_Weather</include>
+
+        <include>Animation.Common</include>
         <control type="group">
-            <left>110</left>
-            <!-- Main Menu (left) -->
+        <left>SidePad</left>
+        <width>1760</width>
+        <top>PosterPad</top>
+        <height>652</height>
+
+	<control type="image">
+            <left>-8</left>
+            <right>-8</right>
+            <top>-8</top>
+            <bottom>-8</bottom>
+            <texture border="16" colordiffuse="Panel">common/rounded-shadow8.png</texture>
+	</control>
+
+	<!-- Dit is de originele LibreELEC-code. -->
+        <control type="group">
+
+            <!-- Achtergrond linkerpaneel menu -->
             <control type="image">
                 <left>0</left>
-                <top>190</top>
+                <top>0</top>
                 <width>440</width>
-                <height>592</height>
-                <texture colordiffuse="ffcccccc">common/white.png</texture>
+                <height>562</height>
+                <texture colordiffuse="Panel">common/white.png</texture>
             </control>
-	    <control type="image">
+
+	    <!-- Achtergrond voor LibreELEC-logo. Was oorspronkelijk 443px (3px breder dan achtergrond menu-onderdelen), onduidelijk waarom. -->
+            <control type="image">
                 <left>0</left>
-                <top>190</top>
-                <width>443</width>
+                <top>0</top>
+                <width>440</width>
                 <height>90</height>
-                <texture colordiffuse="1f333333">common/white.png</texture>
-            </control>
-            <control type="list" id="1000">
-                <left>0</left>
-                <top>280</top>
+                <texture colordiffuse="Panel">common/white.png</texture>
+	    </control>
+
+	    <!-- Voeg scheidingslijn toe zoals in andere skins. -->
+	    <control type="image">
+                <left>440</left>
+                <width>1</width>
+                <top>11</top>
+                <texture colordiffuse="Black12">common/white.png</texture>
+	    </control>
+
+            <!-- Menu-onderdelen linkerpaneel -->
+	    <control type="list" id="1000">
+		<left>0</left>
+                <top>90</top>
                 <width>440</width>
-                <height>500</height>
+                <height>562</height>
                 <onleft>1500</onleft>
                 <pagecontrol></pagecontrol>
                 <scrolltime>300</scrolltime>
                 <itemlayout height="75" width="396">
-
-                    <control type="label">
-                        <left>85</left>
-			<align>center</align>
-                        <top>10</top>
-                        <width>240</width>
-                        <height>55</height>
-                        <font>Home</font>
-                        <textcolor>FF000000</textcolor>
-                        <label>$INFO[ListItem.Label]</label>
-                    </control>
+			<control type="label">
+			    <left>85</left>
+			    <align>center</align>
+			    <top>10</top>
+			    <width>240</width>
+			    <height>55</height>
+			    <font>Small</font>
+			    <textcolor>PanelWhite100</textcolor>
+			    <label>$INFO[ListItem.Label]</label>
+			</control>
                 </itemlayout>
+
+		<!-- Geselecteerd onderdeel -->
                 <focusedlayout height="75" width="396">
-                    <control type="image">
-			<top>8</top>
+		    <control type="image">
+                        <top>8</top>
                         <left>0</left>
                         <height>65</height>
                         <width>440</width>
@@ -66,125 +92,137 @@
                     </control>
                     <control type="label">
                         <left>85</left>
-			<align>center</align>
+                        <align>center</align>
                         <top>12</top>
                         <width>240</width>
                         <height>55</height>
-                        <font>Home</font>
-                        <textcolor>white</textcolor>
+                        <font>Small</font>
+                        <textcolor>Selected</textcolor>
                         <label>$INFO[ListItem.Label]</label>
                     </control>
-                </focusedlayout>
-            </control>
-            <control type="image">
-                <left>420</left>
-                <top>190</top>
-                <width>1300</width>
-                <height>592</height>
-                <texture colordiffuse="ff333333">common/white.png</texture>
-            </control>
-           <control type="image">
-                <description>Dialog Footer image</description>
-                <left>418</left>
-                <top>665</top>
-                <width>1297</width>
-                <height>3</height>
-                <texture colordiffuse="1fcccccc">common/white.png</texture>
-            </control>
-
-            <control type="image">
-                <description>LOGO</description>
-                <left>40</left>
-                <top>200</top>
-                <width>300</width>
-                <height>70</height>
-                <aspectratio>keep</aspectratio>
-                <texture border="1">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/default/Logo.png</texture>
-            </control>
-            <control type="group">
-                <left>420</left>
-                <top>185</top>
-                <width>1256</width>
-                <height>450</height>
-                <!-- Other Content -->
-                <control type="group" id="1900">
-                    <left>0</left>
-                    <top>0</top>
-                    <width>1256</width>
-                    <height>3</height>
-                    <visible>String.IsEqual(Container(1000).ListItem.Property(listTyp), 1900)</visible>
-                    <control type="image">
-                        <left>1150</left>
-                        <top>20</top>
-                        <width>100</width>
-                        <height>100</height>
-                        <texture border="1">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/default/logo_big.png</texture>
-                    </control>
-                    <control type="label">
-                        <left>60</left>
-                        <top>27</top>
-                        <width>300</width>
-                        <height>90</height>
-                        <textcolor>white</textcolor>
-                        <align>left</align>
-                        <aligny>center</aligny>
-			<font>Tiny</font>
-                        <label>$ADDON[service.libreelec.settings 606][CR]$ADDON[service.libreelec.settings 607][CR]$ADDON[service.libreelec.settings 608]</label>
-                    </control>
-                    <control type="label">
-                        <left>300</left>
-                        <top>30</top>
-                        <width>500</width>
-                        <height>90</height>
-                        <textcolor>B3cccccc</textcolor>
-                        <align>left</align>
-                        <aligny>center</aligny>
-			<font>Tiny</font>
-                        <label>$INFO[Window.Property(Distri)] ($INFO[Window.Property(build)])[CR]$INFO[Window.Property(Version)][CR]$INFO[Window.Property(Arch)]</label>
-                    </control>
-		    <control type="image">
-			<description>separator</description>
-			<left>0</left>
-			<top>130</top>
-			<width>1297</width>
-			<height>3</height>
-			<texture colordiffuse="1fcccccc">common/white.png</texture>
-		     </control>
-                    <control type="textbox">
-                        <left>200</left>
-			<align>center</align>
-                        <top>140</top>
-                        <width>900</width>
-                        <height>325</height>
-                        <font>Tiny</font>
-                        <textcolor>B3cccccc</textcolor>
-                        <label>$ADDON[service.libreelec.settings 609][CR][CR]$ADDON[service.libreelec.settings 610])</label>
-                    </control>
-                    <control type="textbox">
-                        <left>60</left>
-                        <top>670</top>
-                        <width>1150</width>
-                        <height>90</height>
-                        <font>Tiny</font>
-                        <textcolor>white</textcolor>
-                        <align>left</align>
-                    </control>
+		    </focusedlayout>
                 </control>
-                <!-- simple list content -->
-                <control type="fixedlist" id="1100">
-		    <focusposition>2</focusposition>
-		    <movement>4</movement>
-                    <left>22</left>
-                    <top>22</top>
-                    <width>1256</width>
+
+		<!-- Achtergrond rechterpaneel menu -->
+                <control type="image">
+                    <left>441</left>
+                    <top>0</top>
+                    <width>1320</width>
+                    <!--height>584</height-->
+                    <texture colordiffuse="Panel">common/white.png</texture>
+                </control>
+
+		<!-- Dit scheidt vermoedelijk de menu-onderdelen van de beschrijving onderaan. -->
+                <control type="image">
+                    <description>Dialog Footer image</description>
+                    <left>452</left>
+                    <top>524</top>
+                    <width>1297</width>
+                    <height>3</height>
+                    <texture colordiffuse="White12">common/white.png</texture>
+                </control>
+
+                <!-- Logo -->
+		<control type="image">
+                    <description>LOGO</description>
+                    <left>5</left>
+                    <top>5</top>
+                    <width>300</width>
+                    <height>90</height>
+                    <aspectratio>keep</aspectratio>
+                    <texture border="5">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/logo.png</texture>
+                </control>
+
+                <!-- Menu-onderdelen rechterpaneel -->
+		<control type="group">
+                    <left>441</left>
+                    <top>0</top>
+                    <width>1320</width>
                     <height>450</height>
-                    <onleft>1000</onleft>
-                    <onright>1500</onright>
-		    <onback>1000</onback>
-                    <scrolltime>300</scrolltime>
-                    <pagecontrol>1097</pagecontrol>
-                    <visible>String.IsEqual(Container(1000).ListItem.Property(listTyp), 1100)</visible>
-                    <itemlayout height="63">
+                    <!-- Other Content -->
+                    <control type="group" id="1900">
+                        <left>0</left>
+                        <top>0</top>
+                        <width>1256</width>
+                        <height>3</height>
+                        <visible>String.IsEqual(Container(1000).ListItem.Property(listTyp), 1900)</visible>
+                        <control type="image">
+                            <left>960</left>
+                            <top>20</top>
+			    <bottom>20</bottom>
+                            <width>333</width>
+                            <height>100</height>
+                            <texture border="1">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/logo.png</texture>
+                        </control>
+                        <control type="label">
+                            <left>60</left>
+                            <top>27</top>
+                            <width>300</width>
+                            <height>90</height>
+                            <textcolor>White100</textcolor>
+                            <align>left</align>
+                            <aligny>center</aligny>
+			    <font>Tiny</font>
+                            <label>$ADDON[service.libreelec.settings 606][CR]$ADDON[service.libreelec.settings 607][CR]$ADDON[service.libreelec.settings 608]</label>
+                        </control>
+                        <control type="label">
+                            <left>300</left>
+                            <top>30</top>
+                            <width>500</width>
+                            <height>90</height>
+                            <textcolor>White100</textcolor>
+                            <align>left</align>
+                            <aligny>center</aligny>
+                            <font>Tiny</font>
+                            <label>$INFO[Window.Property(Distri)] ($INFO[Window.Property(build)])[CR]$INFO[Window.Property(Version)][CR]$INFO[Window.Property(Arch)]</label>
+                        </control>
+
+			<!-- Scheidingslijn bovenaan beschrijving? -->
+                        <control type="image">
+			    <description>separator</description>
+			    <left>11</left>
+                            <top>130</top>
+			    <width>1297</width>
+    			    <height>3</height>
+			    <texture colordiffuse="White12">common/white.png</texture>
+		         </control>
+
+			<!-- Dienstmededeling van LibreELEC. Lijnt voorlopig nog slecht uit. Hoogte zal er wel iets mee te maken hebben. -->
+                        <control type="textbox">
+                            <left>200</left>
+                            <align>center</align>
+                            <top>140</top>
+                            <width>900</width>
+                            <height>325</height>
+                            <font>Tiny</font>
+                            <textcolor>White100</textcolor>
+                            <label>$ADDON[service.libreelec.settings 609][CR][CR]$ADDON[service.libreelec.settings 610])</label>
+                        </control>
+                        <control type="textbox">
+                            <left>60</left>
+                            <top>670</top>
+                            <width>1150</width>
+                            <height>90</height>
+                            <font>Tiny</font>
+                            <textcolor>White100</textcolor>
+                            <align>left</align>
+                        </control>
+                    </control>
+                    <!-- simple list content -->
+                    <control type="fixedlist" id="1100">
+                        <focusposition>2</focusposition>
+		        <movement>4</movement>
+                        <left>22</left>
+                        <top>22</top>
+                        <width>1256</width>
+                        <height>450</height>
+                        <onleft>1000</onleft>
+                        <onright>1500</onright>
+		        <onback>1000</onback>
+                        <scrolltime>300</scrolltime>
+                        <pagecontrol>1097</pagecontrol>
+                        <visible>String.IsEqual(Container(1000).ListItem.Property(listTyp), 1100)</visible>
+                        <itemlayout height="63">
                         <!-- entry name and text value -->
                         <control type="group">
                             <visible>!String.IsEqual(ListItem.Property(Typ), separator)</visible>
@@ -193,7 +231,7 @@
                                 <textoffsetx>80</textoffsetx>
                                 <width>1256</width>
                                 <height>63</height>
-                                <textcolor>white</textcolor>
+                                <textcolor>White100</textcolor>
                                 <info>ListItem.Label</info>
                             </control>
                             <control type="label">
@@ -202,7 +240,7 @@
                                 <textoffsetx>40</textoffsetx>
                                 <width>1256</width>
                                 <height>63</height>
-                                <textcolor>white</textcolor>
+                                <textcolor>White100</textcolor>
                                 <info>ListItem.Property(value)</info>
                                 <visible>!String.IsEqual(ListItem.Property(Typ), bool) + !String.IsEqual(ListItem.Property(Typ), button)</visible>
                             </control>
@@ -216,7 +254,7 @@
                                 <width>1256</width>
                                 <height>63</height>
                                 <font>Button</font>
-                                <textcolor>white</textcolor>
+                                <textcolor>White100</textcolor>
                                 <info>ListItem.Label</info>
                                 <visible>true</visible>
                             </control>
@@ -229,7 +267,7 @@
                                 <top>2</top>
                                 <width>100</width>
                                 <height>60</height>
-                                <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/default/radio-button-off.png</texture>
+                                <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/radio-button-off.png</texture>
                                 <visible>String.IsEqual(ListItem.Property(value), 0) | String.IsEqual(ListItem.Property(value), false) | String.IsEmpty(ListItem.Property(value))</visible>
                             </control>
                             <control type="image">
@@ -237,7 +275,7 @@
                                 <top>2</top>
                                 <width>100</width>
                                 <height>60</height>
-                                <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/default/radio-button-on.png</texture>
+                                <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/radio-button-on.png</texture>
                                 <visible>String.IsEqual(ListItem.Property(value), 1) | String.IsEqual(ListItem.Property(value), true)</visible>
                             </control>
                         </control>
@@ -249,10 +287,10 @@
                                 <top>16</top>
                                 <width>30</width>
                                 <height>30</height>
-                                <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/do.png</texture>
+                                <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/do.png</texture>
                             </control>
                         </control>
-                    </itemlayout>
+                        </itemlayout>
                     <focusedlayout height="63">
                         <!-- entry name and text value -->
                         <control type="group">
@@ -268,7 +306,7 @@
                                 <textoffsetx>80</textoffsetx>
                                 <width>1256</width>
                                 <height>63</height>
-                                <textcolor>white</textcolor>
+                                <textcolor>White100</textcolor>
                                 <info>ListItem.Label</info>
                             </control>
                             <control type="label">
@@ -277,7 +315,7 @@
                                 <aligny>center</aligny>
                                 <width>1256</width>
                                 <height>63</height>
-                                <textcolor>white</textcolor>
+                                <textcolor>White100</textcolor>
                                 <info>ListItem.Property(value)</info>
                                 <visible>!String.IsEqual(ListItem.Property(Typ), bool) + !String.IsEqual(ListItem.Property(Typ), button)</visible>
                             </control>
@@ -291,7 +329,7 @@
                                 <width>1256</width>
                                 <height>63</height>
                                 <font>Button</font>
-                                <textcolor>white</textcolor>
+                                <textcolor>White100</textcolor>
                                 <info>ListItem.Label</info>
                                 <visible>true</visible>
                             </control>
@@ -304,7 +342,7 @@
                                 <top>2</top>
                                 <width>100</width>
                                 <height>60</height>
-                                <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/default/radio-button-off.png</texture>
+                                <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/radio-button-off.png</texture>
                                 <visible>String.IsEqual(ListItem.Property(value), 0) | String.IsEqual(ListItem.Property(value), false) | String.IsEmpty(ListItem.Property(value))</visible>
                             </control>
                             <control type="image">
@@ -312,7 +350,7 @@
                                 <top>2</top>
                                 <width>100</width>
                                 <height>60</height>
-                                <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/default/radio-button-on.png</texture>
+                                <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/radio-button-on.png</texture>
                                 <visible>String.IsEqual(ListItem.Property(value), 1) | String.IsEqual(ListItem.Property(value), true)</visible>
                             </control>
                         </control>
@@ -324,7 +362,7 @@
                                 <top>16</top>
                                 <width>30</width>
                                 <height>30</height>
-                                <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/do.png</texture>
+                                <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/do.png</texture>
                             </control>
                         </control>
                     </focusedlayout>
@@ -349,7 +387,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(netType), ethernet)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/eth.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/eth.png</texture>
                         </control>
                         <!-- Icon wifi -->
                         <control type="image">
@@ -359,7 +397,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(netType), wifi)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/wlan.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/wlan.png</texture>
                         </control>
                         <!-- Connection Name -->
                         <control type="label">
@@ -368,7 +406,7 @@
                             <width>300</width>
                             <height>30</height>
                             <font>Button</font>
-                            <textcolor>white</textcolor>
+                            <textcolor>White100</textcolor>
                             <info>ListItem.Label</info>
                             <visible>true</visible>
                         </control>
@@ -378,8 +416,8 @@
                             <top>49</top>
                             <width>300</width>
                             <height>20</height>
-                            <font>font12</font>
-                            <textcolor>white</textcolor>
+                            <font>Small</font>
+                            <textcolor>White100</textcolor>
                             <label>$ADDON[service.libreelec.settings 601]: [COLOR=white]$INFO[ListItem.Property(Interface)][/COLOR]</label>
                             <visible>!String.IsEmpty(ListItem.Property(Interface))</visible>
                         </control>
@@ -389,8 +427,8 @@
                             <top>49</top>
                             <width>290</width>
                             <height>20</height>
-                            <font>font12</font>
-                            <textcolor>white</textcolor>
+                            <font>Small</font>
+                            <textcolor>White100</textcolor>
                             <visible>String.IsEqual(ListItem.Property(State), online) | String.IsEqual(ListItem.Property(State), ready)</visible>
                             <label>$ADDON[service.libreelec.settings 602]: [COLOR=white]$INFO[ListItem.Property(Address)][/COLOR]</label>
                         </control>
@@ -400,8 +438,8 @@
                             <top>49</top>
                             <width>200</width>
                             <height>20</height>
-                            <font>font12</font>
-                            <textcolor>white</textcolor>
+                            <font>Small</font>
+                            <textcolor>White100</textcolor>
                             <label>$ADDON[service.libreelec.settings 603]: [COLOR=white]$INFO[ListItem.Property(Method)][/COLOR]</label>
                         </control>
                         <!-- State -->
@@ -410,8 +448,8 @@
                             <top>20</top>
                             <width>200</width>
                             <height>20</height>
-                            <font>font12</font>
-                            <textcolor>white</textcolor>
+                            <font>Small</font>
+                            <textcolor>White100</textcolor>
                             <label>$ADDON[service.libreelec.settings 604]: [COLOR=white]$INFO[ListItem.Property(State)][/COLOR]</label>
                         </control>
                         <!-- Signal strength -->
@@ -426,7 +464,7 @@
                             <lefttexture />
                             <righttexture />
                             <overlaytexture />
-                            <midtexture colordiffuse="FF12B2E7" border="2">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/default/separator-grey.png</midtexture>
+                            <midtexture colordiffuse="FF12B2E7" border="2">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/separator-grey.png</midtexture>
                         </control>
                         <!-- Signal strength value -->
                         <control type="label">
@@ -436,46 +474,46 @@
                             <height>40</height>
                             <font>Tiny</font>
                             <align>right</align>
-                            <textcolor>white</textcolor>
+                            <textcolor>White100</textcolor>
                             <info>ListItem.Property(Strength)</info>
                             <visible>String.IsEqual(ListItem.Property(netType), wifi)</visible>
                         </control>
                         <!-- Online Symbol (top right) -->
                         <control type="image">
-                            <left>1238</left>
+                            <left>1150</left> <!-- Alle 'left' waarden werden aangepast om 'online' icoon te kunnen laten zien, dat was gedeeltelijk verborgen. -->
                             <top>20</top>
                             <width>36</width>
                             <height>36</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(State), online)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/connected.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/connected.png</texture>
                         </control>
                         <!-- Favorite Symbol (bottom right) -->
                         <control type="image">
-                            <left>1180</left>
+                            <left>1080</left> <!-- Was 1180. Zie hierboven. -->
                             <top>50</top>
                             <width>20</width>
                             <height>20</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Favorite), 1)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/Favorite.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/favorite.png</texture>
                         </control>
                         <!-- Secure Symbol (bottom right) -->
                         <control type="image">
-                            <left>1210</left>
+                            <left>1110</left> <!-- Was 1210. Zie hierboven. -->
                             <top>50</top>
                             <width>20</width>
                             <height>20</height>
                             <aspectratio>keep</aspectratio>
                             <visible>Integer.IsGreater(ListItem.Property(Security), 0)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/Key.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/key.png</texture>
                         </control>
                     </itemlayout>
                     <focusedlayout height="100">
                         <control type="image">
                             <width>1256</width>
                             <height>100</height>
-                            <texture colordiffuse="FF12B2E7">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/default/focus.png</texture>
+                            <texture colordiffuse="FF12B2E7">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/focus.png</texture>
                             <visible>Control.HasFocus(1200)</visible>
                         </control>
                         <!-- Icon ethernet -->
@@ -486,7 +524,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(netType), ethernet)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/eth.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/eth.png</texture>
                         </control>
                         <!-- Icon wifi -->
                         <control type="image">
@@ -496,7 +534,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(netType), wifi)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/wlan.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/wlan.png</texture>
                         </control>
                         <!-- Connection Name -->
                         <control type="label">
@@ -505,7 +543,7 @@
                             <width>300</width>
                             <height>30</height>
                             <font>Button</font>
-                            <textcolor>white</textcolor>
+                            <textcolor>White100</textcolor>
                             <info>ListItem.Label</info>
                             <visible>true</visible>
                         </control>
@@ -515,8 +553,8 @@
                             <top>49</top>
                             <width>300</width>
                             <height>20</height>
-                            <font>font12</font>
-                            <textcolor>white</textcolor>
+                            <font>Small</font>
+                            <textcolor>White100</textcolor>
                             <label>$ADDON[service.libreelec.settings 601]: [COLOR=white]$INFO[ListItem.Property(Interface)][/COLOR]</label>
                             <visible>!String.IsEmpty(ListItem.Property(Interface))</visible>
                         </control>
@@ -526,8 +564,8 @@
                             <top>49</top>
                             <width>290</width>
                             <height>20</height>
-                            <font>font12</font>
-                            <textcolor>white</textcolor>
+                            <font>Small</font>
+                            <textcolor>White100</textcolor>
                             <visible>String.IsEqual(ListItem.Property(State), online) | String.IsEqual(ListItem.Property(State), ready)</visible>
                             <label>$ADDON[service.libreelec.settings 602]: [COLOR=white]$INFO[ListItem.Property(Address)][/COLOR]</label>
                         </control>
@@ -537,8 +575,8 @@
                             <top>49</top>
                             <width>200</width>
                             <height>20</height>
-                            <font>font12</font>
-                            <textcolor>white</textcolor>
+                            <font>Small</font>
+                            <textcolor>White100</textcolor>
                             <label>$ADDON[service.libreelec.settings 603]: [COLOR=white]$INFO[ListItem.Property(Method)][/COLOR]</label>
                         </control>
                         <!-- State -->
@@ -547,8 +585,8 @@
                             <top>20</top>
                             <width>200</width>
                             <height>20</height>
-                            <font>font12</font>
-                            <textcolor>white</textcolor>
+                            <font>Small</font>
+                            <textcolor>White100</textcolor>
                             <label>$ADDON[service.libreelec.settings 604]: [COLOR=white]$INFO[ListItem.Property(State)][/COLOR]</label>
                         </control>
                         <!-- Signal strength -->
@@ -563,49 +601,49 @@
                             <lefttexture />
                             <righttexture />
                             <overlaytexture />
-                            <midtexture colordiffuse="FF12B2E7" border="2">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/default/separator-grey.png</midtexture>
+                            <midtexture colordiffuse="FF12B2E7" border="2">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/separator-grey.png</midtexture>
                         </control>
                         <!-- Signal strength value -->
                         <control type="label">
-                            <left>1190</left>
+                            <left>1090</left> <!-- Was 1190. Zie hierboven. -->
                             <top>66</top>
                             <width>40</width>
                             <height>40</height>
                             <font>Tiny</font>
                             <align>right</align>
-                            <textcolor>white</textcolor>
+                            <textcolor>White100</textcolor>
                             <info>ListItem.Property(Strength)</info>
                             <visible>String.IsEqual(ListItem.Property(netType), wifi)</visible>
                         </control>
                         <!-- Online Symbol (top right) -->
                         <control type="image">
-                            <left>1238</left>
+                            <left>1150</left> <!-- Was 1238. Zie hierboven. -->
                             <top>20</top>
                             <width>36</width>
                             <height>36</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(State), online)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/connected.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/connected.png</texture>
                         </control>
                         <!-- Favorite Symbol (bottom right) -->
                         <control type="image">
-                            <left>1180</left>
+                            <left>1080</left> <!-- Was 1180. Zie hierboven. -->
                             <top>50</top>
                             <width>20</width>
                             <height>20</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Favorite), 1)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/Favorite.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/favorite.png</texture>
                         </control>
                         <!-- Secure Symbol (bottom right) -->
                         <control type="image">
-                            <left>1210</left>
+                            <left>1110</left> <!-- Was 1110. Zie hierboven. -->
                             <top>50</top>
                             <width>20</width>
                             <height>20</height>
                             <aspectratio>keep</aspectratio>
                             <visible>Integer.IsGreater(ListItem.Property(Security), 0)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/Key.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/key.png</texture>
                         </control>
                     </focusedlayout>
                 </control>
@@ -619,7 +657,7 @@
                     <info />
                     <align>center</align>
                     <visible>String.IsEqual(Container(1000).ListItem.Property(listTyp), 1300) + String.IsEqual(Container(1300).NumItems, 0)</visible>
-		    <textcolor>grey</textcolor>
+		    <textcolor>White30</textcolor>
                 </control>
                 <control type="list" id="1300">
                     <left>22</left>
@@ -641,7 +679,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), default)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt.png</texture>
                         </control>
                         <!-- modem -->
                         <control type="image">
@@ -651,7 +689,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), modem)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-modem.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-modem.png</texture>
                         </control>
                         <!-- audio -->
                         <control type="image">
@@ -661,7 +699,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), audio-card)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-audio-card.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-audio-card.png</texture>
                         </control>
                         <!-- Camera Photo -->
                         <control type="image">
@@ -671,7 +709,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), camera-photo)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-camera-photo.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-camera-photo.png</texture>
                         </control>
                         <!-- Icon phone -->
                         <control type="image">
@@ -681,7 +719,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), phone)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-phone.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-phone.png</texture>
                         </control>
                         <!-- camera-video -->
                         <control type="image">
@@ -691,7 +729,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), camera-video)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-camera-video.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-camera-video.png</texture>
                         </control>
                         <!-- input-mouse -->
                         <control type="image">
@@ -701,7 +739,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), input-mouse)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-input-mouse.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-input-mouse.png</texture>
                         </control>
                         <!-- input-gaming -->
                         <control type="image">
@@ -711,7 +749,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), input-gaming)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-input-gaming.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-input-gaming.png</texture>
                         </control>
                         <!-- input-keyboard -->
                         <control type="image">
@@ -721,7 +759,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), input-keyboard)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-input-keyboard.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-input-keyboard.png</texture>
                         </control>
                         <!-- input-tablet -->
                         <control type="image">
@@ -731,7 +769,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), input-tablet)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-input-tablet.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-input-tablet.png</texture>
                         </control>
                         <!-- Printer -->
                         <control type="image">
@@ -741,7 +779,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), printer)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-printer.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-printer.png</texture>
                         </control>
                         <!-- Computer -->
                         <control type="image">
@@ -751,7 +789,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), computer)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-computer.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-computer.png</texture>
                         </control>
                         <!-- Connection Name -->
                         <control type="label">
@@ -760,7 +798,7 @@
                             <width>490</width>
                             <height>30</height>
                             <font>Button</font>
-                            <textcolor>white</textcolor>
+                            <textcolor>White100</textcolor>
                             <info>ListItem.Label</info>
                             <visible>true</visible>
                         </control>
@@ -770,8 +808,8 @@
                             <top>49</top>
                             <width>340</width>
                             <height>20</height>
-                            <font>font12</font>
-                            <textcolor>white</textcolor>
+                            <font>Small</font>
+                            <textcolor>White100</textcolor>
                             <label>$ADDON[service.libreelec.settings 605]: [COLOR=white]$INFO[ListItem.Property(Address)][/COLOR]</label>
                         </control>
                         <!-- Connected State -->
@@ -780,8 +818,8 @@
                             <top>20</top>
                             <width>340</width>
                             <height>20</height>
-                            <font>font12</font>
-                            <textcolor>white</textcolor>
+                            <font>Small</font>
+                            <textcolor>White100</textcolor>
                             <label>$ADDON[service.libreelec.settings 32333][COLOR=white]$INFO[ListItem.Property(ConnectedState)][/COLOR]</label>
                         </control>
                         <!-- Paired Symbol (bottom right) -->
@@ -792,7 +830,7 @@
                             <height>20</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Paired), 1)</visible>
-                            <texture>icons/Favorite.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/favorite.png</texture>
                         </control>
                         <!-- Trusted Symbol (bottom right) -->
                         <control type="image">
@@ -802,14 +840,14 @@
                             <height>20</height>
                             <aspectratio>keep</aspectratio>
                             <visible>Integer.IsGreater(ListItem.Property(Trusted), 0)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/Key.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/key.png</texture>
                         </control>
                     </itemlayout>
                     <focusedlayout height="100">
                         <control type="image">
                             <width>1256</width>
                             <height>100</height>
-                            <texture colordiffuse="FF12B2E7">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/default/focus.png</texture>
+                            <texture colordiffuse="FF12B2E7">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/focus.png</texture>
                             <visible>Control.HasFocus(1300)</visible>
                         </control>
                         <!-- default -->
@@ -820,7 +858,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), default)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt.png</texture>
                         </control>
                         <!-- modem -->
                         <control type="image">
@@ -830,7 +868,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), modem)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-modem.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-modem.png</texture>
                         </control>
                         <!-- audio -->
                         <control type="image">
@@ -840,7 +878,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), audio-card)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-audio-card.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-audio-card.png</texture>
                         </control>
                         <!-- Camera Photo -->
                         <control type="image">
@@ -850,7 +888,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), camera-photo)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-camera-photo.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-camera-photo.png</texture>
                         </control>
                         <!-- Icon phone -->
                         <control type="image">
@@ -860,7 +898,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), phone)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-phone.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-phone.png</texture>
                         </control>
                         <!-- camera-video -->
                         <control type="image">
@@ -870,7 +908,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), camera-video)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-camera-video.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-camera-video.png</texture>
                         </control>
                         <!-- input-mouse -->
                         <control type="image">
@@ -880,7 +918,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), input-mouse)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-input-mouse.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-input-mouse.png</texture>
                         </control>
                         <!-- input-gaming -->
                         <control type="image">
@@ -890,7 +928,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), input-gaming)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-input-gaming.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-input-gaming.png</texture>
                         </control>
                         <!-- input-keyboard -->
                         <control type="image">
@@ -900,7 +938,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), input-keyboard)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-input-keyboard.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-input-keyboard.png</texture>
                         </control>
                         <!-- input-tablet -->
                         <control type="image">
@@ -910,7 +948,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), input-tablet)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-input-tablet.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-input-tablet.png</texture>
                         </control>
                         <!-- Printer -->
                         <control type="image">
@@ -920,7 +958,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), printer)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-printer.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-printer.png</texture>
                         </control>
                         <!-- Computer -->
                         <control type="image">
@@ -930,7 +968,7 @@
                             <height>48</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Icon), computer)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/bt-computer.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/bt-computer.png</texture>
                         </control>
                         <!-- Connection Name -->
                         <control type="label">
@@ -939,7 +977,7 @@
                             <width>490</width>
                             <height>30</height>
                             <font>Button</font>
-                            <textcolor>white</textcolor>
+                            <textcolor>White100</textcolor>
                             <info>ListItem.Label</info>
                             <visible>true</visible>
                         </control>
@@ -949,8 +987,8 @@
                             <top>49</top>
                             <width>340</width>
                             <height>20</height>
-                            <font>font12</font>
-                            <textcolor>white</textcolor>
+                            <font>Small</font>
+                            <textcolor>White100</textcolor>
                             <label>$ADDON[service.libreelec.settings 605]: [COLOR=white]$INFO[ListItem.Property(Address)][/COLOR]</label>
                         </control>
                         <!-- Connected State -->
@@ -959,8 +997,8 @@
                             <top>20</top>
                             <width>340</width>
                             <height>20</height>
-                            <font>font12</font>
-                            <textcolor>white</textcolor>
+                            <font>Small</font>
+                            <textcolor>White100</textcolor>
                             <label>$ADDON[service.libreelec.settings 32333][COLOR=white]$INFO[ListItem.Property(ConnectedState)][/COLOR]</label>
                         </control>
                         <!-- Paired Symbol (bottom right) -->
@@ -971,7 +1009,7 @@
                             <height>20</height>
                             <aspectratio>keep</aspectratio>
                             <visible>String.IsEqual(ListItem.Property(Paired), 1)</visible>
-                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/icons/Favorite.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/favorite.png</texture>
                         </control>
                         <!-- Trusted Symbol (bottom right) -->
                         <control type="image">
@@ -981,21 +1019,21 @@
                             <height>20</height>
                             <aspectratio>keep</aspectratio>
                             <visible>Integer.IsGreater(ListItem.Property(Trusted), 0)</visible>
-                            <texture>icons/Key.png</texture>
+                            <texture>/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/key.png</texture>
                         </control>
                     </focusedlayout>
                 </control>
             </control>
 	    <!-- information text at bottom -->
             <control type="textbox" id="1400">
-                <left>466</left>
-                <top>680</top>
+                <left>452</left>
+                <top>537</top>
                 <width>1150</width>
-                <height>150</height>
+                <height>125</height>
                 <label>$INFO[Window.Property(InfoText)]</label>
                 <align>left</align>
                 <font>Tiny</font>
-                <textcolor>B3cccccc</textcolor>
+                <textcolor>White70</textcolor>
             </control>
             <control type="button" id="1501">
                 <left>1400</left>
@@ -1003,11 +1041,11 @@
                 <width>300</width>
                 <height>75</height>
                 <visible>true</visible>
-                <texturefocus border="40" colordiffuse="FF12B2E7">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/default/button-fo.png</texturefocus>
-                <texturenofocus colordiffuse="71FFFFFF" border="40">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/default/button-alt-nofo.png</texturenofocus>
+                <texturefocus border="40" colordiffuse="FF12B2E7">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/button-fo.png</texturefocus>
+                <texturenofocus colordiffuse="71FFFFFF" border="40">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/button-nofo.png</texturenofocus>
                 <label />
                 <font>font13_title</font>
-                <textcolor>white</textcolor>
+                <textcolor>White100</textcolor>
                 <align>center</align>
                 <onup>1100</onup>
                 <ondown>1100</ondown>
@@ -1022,11 +1060,11 @@
                 <width>300</width>
                 <height>75</height>
                 <visible>true</visible>
-                <texturefocus border="40" colordiffuse="FF12B2E7">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/default/button-fo.png</texturefocus>
-                <texturenofocus colordiffuse="71FFFFFF" border="40">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/default/button-alt-nofo.png</texturenofocus>
+                <texturefocus border="40" colordiffuse="FF12B2E7">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/button-fo.png</texturefocus>
+                <texturenofocus colordiffuse="71FFFFFF" border="40">/usr/share/kodi/addons/service.libreelec.settings/resources/skins/Default/media/button-nofo.png</texturenofocus>
                 <label />
                 <font>font13_title</font>
-                <textcolor>white</textcolor>
+                <textcolor>White100</textcolor>
                 <align>center</align>
                 <onup>1100</onup>
                 <ondown>1100</ondown>
@@ -1035,6 +1073,7 @@
                 <onright>1501</onright>
                 <visible>!String.IsEmpty(Control.GetLabel(1500))</visible>
             </control>
+	</control>
         </control>
 
         <!-- simple list ( 1100 ) up / down -->
