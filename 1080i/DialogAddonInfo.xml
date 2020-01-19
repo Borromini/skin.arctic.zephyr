@@ -45,7 +45,7 @@
 
                     <control type="button" id ="12">
                         <description>Launch</description>
-                        <label>518</label>
+                        <label>$LOCALIZE[518]</label>
                         <width>260</width>
                         <include>DefInfoButtons</include>
                         <visible>Control.IsEnabled(12)</visible>
@@ -53,7 +53,7 @@
 
                     <control type="button" id ="6">
                         <description>Install</description>
-                        <label>24022</label>
+                        <label>$LOCALIZE[24022]</label>
                         <width>260</width>
                         <include>DefInfoButtons</include>
                         <visible>!Skin.HasSetting(global.kioskmode)</visible>
@@ -62,7 +62,7 @@
 
                     <control type="button" id ="7">
                         <description>Enable</description>
-                        <label>24021</label>
+                        <label>$LOCALIZE[24021]</label>
                         <width>260</width>
                         <include>DefInfoButtons</include>
                         <visible>!Skin.HasSetting(global.kioskmode)</visible>
@@ -71,7 +71,7 @@
 
                     <control type="button" id ="9">
                         <description>Settings</description>
-                        <label>24020</label>
+                        <label>$LOCALIZE[24020]</label>
                         <width>260</width>
                         <include>DefInfoButtons</include>
                         <visible>!Skin.HasSetting(global.kioskmode)</visible>
@@ -80,7 +80,7 @@
 
                     <control type="button" id ="8">
                         <description>Update</description>
-                        <label>24069</label>
+                        <label>$LOCALIZE[24069]</label>
                         <width>260</width>
                         <include>DefInfoButtons</include>
                         <visible>!Skin.HasSetting(global.kioskmode)</visible>
