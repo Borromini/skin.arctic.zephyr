@@ -387,6 +387,21 @@
                         <onclick>Skin.ToggleSetting(furniture.numericrating)</onclick>
                         <enable>!Skin.HasSetting(furniture.flags)</enable>
                     </control>
+		    <!--
+		        Dit lijkt de plek om de RottenTomatoes-rating toe te voegen. Radiobutton ID lijkt wel uniek te moeten zijn.
+			9278 is de hoogste waarde die ik terugvond. We kunnen iets vergelijkbaars doen voor MetaCritic, als het
+			blijkt te werken (en MetaCritic de moeite loont).
+			 -->
+                    <control type="radiobutton" id="9279" description="RottenTomatoes Rating">
+                        <width>1310</width>
+                        <visible>ControlGroup(9100).HasFocus(9106)</visible>
+                        <include>DefSettingsButton</include>
+                        <label>31284</label>
+                        <selected>Skin.HasSetting(furniture.rottentomatoesrating)</selected>
+                        <onclick>Skin.ToggleSetting(furniture.rottentomatoesrating)</onclick>
+			<!-- Schakel de quotering op 5 sterren uit. -->
+			<enable>Skin.HasSetting(furniture.numericrating)</enable>
+                    </control>
                     <control type="radiobutton" id="9264" description="Now Playing">
                         <width>1310</width>
                         <visible>ControlGroup(9100).HasFocus(9106)</visible>

@@ -777,3 +777,7 @@ msgstr ""
 msgctxt "#31283"
 msgid "[B]LibreELEC system settings[/B][CR][CR] •     Updates[CR] •     Network[CR] •     Connections[CR] •     Bluetooth[CR] •     Services[CR]"
 msgstr ""
+
+msgctxt "#31284"
+msgid "Show RottenTomatoes rating" 
+msgstr ""
