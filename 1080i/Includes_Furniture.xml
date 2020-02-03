@@ -1,21 +1,207 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
+    <!--
+	 TODO:
+	 + Icoontje linksboven blijft omschakelen naar letter (AZ Legacy gedrag).
+	 + Scrollbalk zal onder bepaalde omstandigheden zichtbaar zijn; letterbalk dient dan uitgeschakeld. De AZ 2 code ('visible' string onder
+	   control type scrollbar) lijkt hier wel al rekening mee te houden: ze lijken beide beurtelings actief.
+
+         AZ 2 gebruikt een "Object_Scrollbars" include in 1080i/Includes_Object.XML om weergave scrollbar te controleren (met de view ID's).
+	 AZ Legacy gebruikt gewoon expliciet de Furniture_Scrollbar in elke view.
+	  -->
+
+    <!-- Scrollbar is standaard verticaal (zie Kodi wiki: 'Scroll bar control') -->
     <include name="Furniture_Scrollbar">
         <control type="scrollbar" id="60">
+	    <!-- #1 Scrollbar standaard niet zichtbaar - zie 'visible' onderaan (waar de 551 / 556 / ... waarden vandaan komen is onduidelijk...) -->
             <onback>50</onback>
             <centerright>60</centerright>
             <posy>PosterPad</posy>
+	    <!-- #2 AZ 2 gebruikt zelf geen 'height' waarde voor de scrollbar; wel view_list_height ipv PosterH voor de grouplists. PosterH is 640px, waar AZ 2 view_list_height 780px is; dus 140px minder. -->
             <height>PosterH</height>
             <width>8</width>
+	    <!-- #3 AZ 2 gebruikt hier twee waarden (resp. view_top, 180px, en view_bottom, 120px). AZ Legacy gebruikt voor de eerste 'PosterPad' in sommige views. -->
+            <top>PosterPad</top>
+            <bottom>120</bottom>
+	    <!-- #4 Beide instellingen hieronder zijn standaard voor Kodi, maar AZ 2 vermeldt ze expliciet. AZ Legacy stelt 'showonepage' standaard in op 'false'. -->
+            <showonepage>true</showonepage>
+            <orientation>vertical</orientation>
             <onleft>50</onleft>
-            <onright condition="!Skin.HasSetting(global.kioskmode)">9000</onright>
-            <texturesliderbackground border="4" colordiffuse="Dark4">scrollbar/scrollv.png</texturesliderbackground>
+            <!--onright condition="!Skin.HasSetting(global.kioskmode)">9000</onright-->
+            <texturesliderbackground border="4" colordiffuse="Dark4">common/white.png</texturesliderbackground>
             <texturesliderbar border="4" colordiffuse="Dark3">scrollbar/scrollv.png</texturesliderbar>
-            <texturesliderbarfocus border="4" colordiffuse="Dark2">scrollbar/scrollv.png</texturesliderbarfocus>
-            <animation effect="fade" start="100" end="33" time="400" condition="!Control.HasFocus(60) + !Container.Scrolling">Conditional</animation>
+            <texturesliderbarfocus border="4" colordiffuse="Dark1">scrollbar/scrollv.png</texturesliderbarfocus>
+            <animation effect="fade" start="100" end="0" time="400" condition="!Control.HasFocus(60) + !Container.Scrolling">Conditional</animation>
+	    <visible>![String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557])]</visible>
+	    <!-- #5 Includes from AZ 2, but names with underscores instead of dots, for consistency with AZ Legacy. -->
+	    <include>Animation.FadeIn</include>
+            <include>Animation.FadeOut</include>
+	</control>
+
+        <control type="button" id="60">
+            <visible>[String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557])]</visible>
+            <font />
+            <texturefocus />
+            <texturenofocus />
+            <centerright>60</centerright>
+            <width>40</width>
+	    <!-- Zie opmerking #3 boven onder control type scrollbar -->
+            <top>PosterPad</top>
+            <bottom>120</bottom>
+            <onleft>50</onleft>
+            <ondown>SetFocus(50)</ondown>
+            <ondown>Action(nextletter)</ondown>
+            <ondown condition="!Container.HasNext | String.IsEqual(ListItem.SortLetter,Z)">Action(jumpsms2)</ondown>
+            <ondown condition="!Container.HasNext | String.IsEqual(ListItem.SortLetter,Z)">Action(prevletter)</ondown>
+            <ondown condition="!Container.HasNext | String.IsEqual(ListItem.SortLetter,Z)">Action(prevletter)</ondown>
+            <ondown condition="!Container.HasNext | String.IsEqual(ListItem.SortLetter,Z)">Action(prevletter)</ondown>
+            <ondown>SetFocus(60)</ondown>
+            <onup>SetFocus(50)</onup>
+            <onup>Action(prevletter)</onup>
+            <onup condition="!Container.HasPrevious | $EXP[Exp_SortLetterIsNumber]">Action(jumpsms9)</onup>
+            <onup condition="!Container.HasPrevious | $EXP[Exp_SortLetterIsNumber]">Action(nextletter)</onup>
+            <onup condition="!Container.HasPrevious | $EXP[Exp_SortLetterIsNumber]">Action(nextletter)</onup>
+            <onup condition="!Container.HasPrevious | $EXP[Exp_SortLetterIsNumber]">Action(nextletter)</onup>
+            <onup>SetFocus(60)</onup>
+        </control>
+
+        <control type="grouplist">
+	    <!-- Zie ook opmerking #3 boven onder control type scrollbar. -->
+            <top>PosterPad</top>
+            <bottom>120</bottom>
+            <centerright>60</centerright>
+            <width>64</width>
+	    <!-- Zie opmerking #2 onder control type scrollbar. AZ 2 heeft 140px meer waardoor we een extra grouplist blok nodig hebben. -->
+            <height>PosterH</height>
+            <itemgap>0</itemgap>
+            <orientation>vertical</orientation>
+            <animation effect="fade" start="100" end="0" time="400" condition="!Control.HasFocus(60) + !Container.Scrolling">Conditional</animation>
+            <include>Animation.FadeIn</include>
+            <include>Animation.FadeOut</include>
+            <include>Object.AlphabetNumber</include>
+            <include content="Object.AlphabetLetter"><param name="label" value="A" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="B" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="C" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="D" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="E" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="F" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="G" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="H" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="I" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="J" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="K" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="L" /></include>
+            <animation effect="fade" start="100" end="0" condition="[String.IsEqual(ListItem.SortLetter,L) | String.IsEqual(ListItem.SortLetter,M) | String.IsEqual(ListItem.SortLetter,N) | String.IsEqual(ListItem.SortLetter,O) | String.IsEqual(ListItem.SortLetter,P) | String.IsEqual(ListItem.SortLetter,Q) | String.IsEqual(ListItem.SortLetter,R) | String.IsEqual(ListItem.SortLetter,S) | String.IsEqual(ListItem.SortLetter,T) | String.IsEqual(ListItem.SortLetter,U) | String.IsEqual(ListItem.SortLetter,V) | String.IsEqual(ListItem.SortLetter,W) | String.IsEqual(ListItem.SortLetter,X) | String.IsEqual(ListItem.SortLetter,Y) | String.IsEqual(ListItem.SortLetter,Z)]">Conditional</animation>
+            <visible>[String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557])]</visible>
+        </control>
+
+        <control type="grouplist">
+	    <!-- Zie opmerking #3 boven onder control type scrollbar -->
+            <top>PosterPad</top>
+            <bottom>120</bottom>
+            <centerright>60</centerright>
+            <width>64</width>
+            <height>PosterH</height>
+            <itemgap>0</itemgap>
+            <orientation>vertical</orientation>
+            <animation effect="fade" start="100" end="0" time="400" condition="!Control.HasFocus(60) + !Container.Scrolling">Conditional</animation>
+            <include>Animation.FadeIn</include>
+            <include>Animation.FadeOut</include>
+            <include content="Object.AlphabetLetter"><param name="label" value="J" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="K" /></include>
+	    <include content="Object.AlphabetLetter"><param name="label" value="L" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="M" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="N" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="O" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="P" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="Q" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="R" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="S" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="T" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="U" /></include>
+            <animation effect="fade" start="100" end="0" condition="![String.IsEqual(ListItem.SortLetter,L) | String.IsEqual(ListItem.SortLetter,M) | String.IsEqual(ListItem.SortLetter,N) | String.IsEqual(ListItem.SortLetter,O) | String.IsEqual(ListItem.SortLetter,P) | String.IsEqual(ListItem.SortLetter,Q) | String.IsEqual(ListItem.SortLetter,R) | String.IsEqual(ListItem.SortLetter,S) | String.IsEqual(ListItem.SortLetter,T)]">Conditional</animation>
+	    <animation effect="fade" start="100" end="0" condition="[String.IsEqual(ListItem.SortLetter,U)]">Conditional</animation>
+            <visible>[String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557])]</visible>
+        </control>
+
+        <!--
+             Additional stanza to accomodate the lower Arctic Zephyr Legacy height (640px whereas AZ 2 uses 780px). Three letter overlap.
+	     Zie ook opmerking #5 boven onder control type scrollbar.
+	      -->
+	<control type="grouplist">
+	    <!-- Zie opmerking #3 boven onder control type scrollbar -->
+            <top>PosterPad</top>
+            <bottom>120</bottom>
+            <centerright>60</centerright>
+            <width>64</width>
+            <height>PosterH</height>
+            <itemgap>0</itemgap>
+            <orientation>vertical</orientation>
+            <animation effect="fade" start="100" end="0" time="400" condition="!Control.HasFocus(60) + !Container.Scrolling">Conditional</animation>
+            <include>Animation.FadeIn</include>
+            <include>Animation.FadeOut</include>
+            <include content="Object.AlphabetLetter"><param name="label" value="S" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="T" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="U" /></include>
+	    <include content="Object.AlphabetLetter"><param name="label" value="V" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="W" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="X" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="Y" /></include>
+            <include content="Object.AlphabetLetter"><param name="label" value="Z" /></include>
+            <animation effect="fade" start="100" end="0" condition="![String.IsEqual(ListItem.SortLetter,U) | String.IsEqual(ListItem.SortLetter,V) | String.IsEqual(ListItem.SortLetter,W) | String.IsEqual(ListItem.SortLetter,X) | String.IsEqual(ListItem.SortLetter,Y) | String.IsEqual(ListItem.SortLetter,Z)]">Conditional</animation>
+            <visible>[String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557])]</visible>
         </control>
     </include>
 
+    <!-- Zie ook opmerking #5 boven onder control type scrollbar. -->
+    <include name="Object.AlphabetLetter">
+        <control type="label">
+            <width>64</width>
+            <height>52</height>
+            <label>$PARAM[label]</label>
+            <align>center</align>
+            <aligny>center</aligny>
+            <textcolor>Dark3</textcolor>
+            <font>Tiny</font>
+            <visible>!String.IsEqual(ListItem.SortLetter,$PARAM[label])</visible>
+        </control>
+        <control type="label">
+            <width>64</width>
+            <height>52</height>
+            <label>[B]$PARAM[label][/B]</label>
+            <align>center</align>
+            <aligny>center</aligny>
+            <textcolor>Dark1</textcolor>
+            <font>TinyBold</font>
+            <visible>String.IsEqual(ListItem.SortLetter,$PARAM[label])</visible>
+        </control>
+    </include>
+
+    <!-- Zie ook opmerking #5 boven onder control type scrollbar. -->
+    <include name="Object.AlphabetNumber">
+        <control type="label">
+            <width>64</width>
+            <height>52</height>
+            <label>#</label>
+            <align>center</align>
+            <aligny>center</aligny>
+            <textcolor>Dark3</textcolor>
+            <font>Tiny</font>
+            <visible>!$EXP[Exp_SortLetterIsNumber]</visible>
+        </control>
+        <control type="label">
+            <width>64</width>
+            <height>52</height>
+            <label>[B]#[/B]</label>
+            <align>center</align>
+            <aligny>center</aligny>
+            <textcolor>Dark1</textcolor>
+            <font>TinyBold</font>
+            <visible>$EXP[Exp_SortLetterIsNumber]</visible>
+        </control>
+    </include>
+
+    <!-- Dit is nog gewoon netjes Arctic Zephyr Legacy code. Hebben we tot nader order ook niet nodig. -->
     <include name="Furniture_Scrollbar_Horizontal">
         <control type="scrollbar" id="60">
             <onback>50</onback>

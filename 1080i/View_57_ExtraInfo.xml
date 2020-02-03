@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Foundation -->
+
+<!-- TODO: scrollbar is broken in low list view. Won't scroll beyond L. Haven't tested other views. -->
+
 <includes>
     <include name="View_57_ExtraInfo">
         <description>List View (id=57)</description>
